@@ -1,27 +1,43 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <limits>
+#include <stdexcept>
 
 using namespace std;
 
 
 bool isValidNumber(const string &s) {
-    if(s.empty()) return false;
-
-    for(char c : s) {
-        if(!isdigit(c)) {
+    if (s.empty()) {
+        return false;
+    }
+    for (char c : s) {
+        if (!isdigit(c)) {
             return false;
         }
     }
-
-    return s.size() == 1 || (s.size() > 1 && s[0] != '0');
+    return true;
 }
 
 bool checkSum(const string &a, const string &b, const string &c) {
     if (!isValidNumber(a) || !isValidNumber(b) || !isValidNumber(c))
         return false;
-    string sum = to_string(stoi(a) + stoi(b));
-    return sum == c;
+
+    try {
+        long long int_a = stoll(a);
+        long long int_b = stoll(b);
+        long long int_c = stoll(c);
+
+        if (int_a > numeric_limits<int>::max() || int_b > numeric_limits<int>::max() || int_c > numeric_limits<int>::max()) {
+            return false;
+        }
+
+        return (int_a + int_b == int_c);
+    } catch (out_of_range &e) {
+        return false;
+    } catch (invalid_argument &e) {
+        return false;
+    }
 }
 
 int main() {
@@ -43,14 +59,16 @@ int main() {
     inputFile >> input;
     inputFile.close();
 
-    if(!isValidNumber(input)) {
-        cerr << "Некоректные данные, считывающий файл"
-                " должен содержать только цифры";
+    if (!isValidNumber(input)) {
+        cerr << "Некоректные данные, считывающий файл должен"
+                " содержать только цифры";
+        outputFile << "Некоректные данные";
+        outputFile.close();
     }
 
     int n = input.size();
 
-    for (int i = 1; i < n - 1; ++i) {
+    for (int i = 1; i < n; ++i) {
         for (int j = 1; j < n - i; ++j) {
             string a = input.substr(0, i);
             string b = input.substr(i, j);
