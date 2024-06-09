@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <limits>
 #include <stdexcept>
 
 using namespace std;
@@ -23,21 +22,10 @@ bool checkSum(const string &a, const string &b, const string &c) {
     if (!isValidNumber(a) || !isValidNumber(b) || !isValidNumber(c))
         return false;
 
-    try {
-        long long int_a = stoll(a);
-        long long int_b = stoll(b);
-        long long int_c = stoll(c);
-
-        if (int_a > numeric_limits<int>::max() || int_b > numeric_limits<int>::max() || int_c > numeric_limits<int>::max()) {
-            return false;
-        }
-
-        return (int_a + int_b == int_c);
-    } catch (out_of_range &e) {
-        return false;
-    } catch (invalid_argument &e) {
-        return false;
-    }
+    long long int_a = stoll(a);
+    long long int_b = stoll(b);
+    long long int_c = stoll(c);
+    return (int_a + int_b == int_c);
 }
 
 int main() {
@@ -97,4 +85,5 @@ int main() {
 
     outputFile << "No" << endl;
     outputFile.close();
+    return 1;
 }
