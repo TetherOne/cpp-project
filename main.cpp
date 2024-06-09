@@ -7,9 +7,7 @@ using namespace std;
 
 
 bool isValidNumber(const string &s) {
-    if (s.empty()) {
-        return false;
-    }
+    if (s.empty()) return false;
     for (char c : s) {
         if (!isdigit(c)) {
             return false;
@@ -22,10 +20,16 @@ bool checkSum(const string &a, const string &b, const string &c) {
     if (!isValidNumber(a) || !isValidNumber(b) || !isValidNumber(c))
         return false;
 
-    long long int_a = stoll(a);
-    long long int_b = stoll(b);
-    long long int_c = stoll(c);
-    return (int_a + int_b == int_c);
+    try {
+        long long int_a = stoll(a);
+        long long int_b = stoll(b);
+        long long int_c = stoll(c);
+        return (int_a + int_b == int_c);
+    } catch (out_of_range &e) {
+        return false;
+    } catch (invalid_argument &e) {
+        return false;
+    }
 }
 
 int main() {
@@ -48,10 +52,10 @@ int main() {
     inputFile.close();
 
     if (!isValidNumber(input)) {
-        cerr << "Некоректные данные, считывающий файл должен"
-                " содержать только цифры";
-        outputFile << "Некоректные данные";
+        cerr << "Некорректные данные, считывающий файл должен содержать только цифры" << endl;
+        outputFile << "Некорректные данные" << endl;
         outputFile.close();
+        return 1;
     }
 
     int n = input.size();
@@ -85,5 +89,5 @@ int main() {
 
     outputFile << "No" << endl;
     outputFile.close();
-    return 1;
+    return 0;
 }
