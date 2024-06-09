@@ -37,12 +37,12 @@ int main() {
     ofstream outputFile("/Users/pasha/ClionProjects/untitled/output.txt");
 
     if (!inputFile.is_open()) {
-        cerr << "Ошибка при открытии input.txt" << endl;
+        cerr << "Ошибка при открытии input.txt";
         return 1;
     }
 
     if (!outputFile.is_open()) {
-        cerr << "Ошибка при открытии output.txt" << endl;
+        cerr << "Ошибка при открытии output.txt";
         inputFile.close();
         return 1;
     }
@@ -52,8 +52,9 @@ int main() {
     inputFile.close();
 
     if (!isValidNumber(input)) {
-        cerr << "Некорректные данные, считывающий файл должен содержать только цифры" << endl;
-        outputFile << "Некорректные данные" << endl;
+        cerr << "Некорректные данные, считывающий файл должен"
+                " содержать только цифры";
+        outputFile << "Некорректные данные";
         outputFile.close();
         return 1;
     }
@@ -67,7 +68,7 @@ int main() {
             string c = input.substr(i + j);
 
             if (checkSum(a, b, c)) {
-                outputFile << a << "+" << b << "=" << c << endl;
+                outputFile << a << "+" << b << "=" << c;
                 outputFile.close();
                 return 0;
             }
@@ -79,7 +80,7 @@ int main() {
                 c = ring.substr(k + i + j, n - (i + j));
 
                 if (checkSum(a, b, c)) {
-                    outputFile << a << "+" << b << "=" << c << endl;
+                    outputFile << a << "+" << b << "=" << c;
                     outputFile.close();
                     return 0;
                 }
@@ -87,7 +88,7 @@ int main() {
         }
     }
 
-    outputFile << "No" << endl;
+    outputFile << "No";
     outputFile.close();
     return 0;
 }
