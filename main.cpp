@@ -5,7 +5,7 @@
 
 using namespace std;
 
-
+// Функция проверяет, является ли строка числом
 bool isValidNumber(const string &s) {
     if (s.empty()) return false;
     for (char c : s) {
@@ -16,18 +16,19 @@ bool isValidNumber(const string &s) {
     return true;
 }
 
+// Функция проверяет, равна ли сумма первых двух чисел третьему
 bool checkSum(const string &a, const string &b, const string &c) {
     if (!isValidNumber(a) || !isValidNumber(b) || !isValidNumber(c))
         return false;
 
     try {
-        long long int_a = stoll(a);
+        long long int_a = stoll(a); // Преобразуем строку в число
         long long int_b = stoll(b);
         long long int_c = stoll(c);
-        return (int_a + int_b == int_c);
+        return (int_a + int_b == int_c); // Возвращаем true, если сумма равна, иначе false
     } catch (out_of_range &e) {
-        return false;
-    } catch (invalid_argument &e) {
+        // Если число выходит за пределы long long,
+        // то функция возвращает false
         return false;
     }
 }
@@ -61,6 +62,7 @@ int main() {
 
     int n = input.size();
 
+    // Перебираем все возможные разбиения строки на три части
     for (int i = 1; i < n; ++i) {
         for (int j = 1; j < n - i; ++j) {
             string a = input.substr(0, i);
@@ -74,6 +76,7 @@ int main() {
             }
 
             string ring = input + input;
+            // Перебираем все возможные разбиения кольцевой строки на три части
             for (int k = 0; k < n; ++k) {
                 a = ring.substr(k, i);
                 b = ring.substr(k + i, j);
